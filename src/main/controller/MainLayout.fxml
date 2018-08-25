@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.MainController">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="38.0" prefWidth="600.0">
+               <children>
+                  <Label text="Income">
+                     <HBox.margin>
+                        <Insets left="5.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="income" prefWidth="50.0">
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="Current&#10;Balance" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="5.0" top="2.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="currentBalance" prefWidth="50.0">
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Label text="Expected&#10;Balance" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="5.0" top="2.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="expectedBalance" prefWidth="50.0">
+                     <HBox.margin>
+                        <Insets left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="addButton" mnemonicParsing="false" text="Add">
+                     <HBox.margin>
+                        <Insets left="200.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <ListView prefHeight="337.0" prefWidth="542.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
