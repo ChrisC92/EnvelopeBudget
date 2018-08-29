@@ -5,9 +5,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import main.controller.MainController;
 import main.controller.RootController;
+import main.model.Envelope;
 
 import java.io.IOException;
 
@@ -17,6 +19,7 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private MainController mainController;
     private RootController rootController;
+    private Envelope envelope;
 
 
     @Override
@@ -25,6 +28,19 @@ public class Main extends Application {
         initRootLayout();
         initMainLayout();
         linkControllers();
+        initEnvelope();
+    }
+
+    private void initEnvelope() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/main/model/EnvelopeLayout.fxml"));
+            HBox layout = loader.load();
+            envelope = loader.getController();
+            envelope.setMainApp(this);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

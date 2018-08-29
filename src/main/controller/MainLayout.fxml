@@ -48,7 +48,7 @@
                   </Button>
                </children>
             </HBox>
-            <ListView prefHeight="337.0" prefWidth="542.0" />
+            <ListView fx:id="displayedEnvelopes" prefHeight="337.0" prefWidth="542.0" />
          </children>
       </VBox>
    </children>
