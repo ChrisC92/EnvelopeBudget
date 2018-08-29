@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.MainController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.baselayouts.MainController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -41,7 +41,7 @@
                         <Insets left="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="addButton" mnemonicParsing="false" text="Add">
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Add">
                      <HBox.margin>
                         <Insets left="200.0" top="5.0" />
                      </HBox.margin>

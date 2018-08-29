@@ -5,11 +5,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import main.controller.MainController;
-import main.controller.RootController;
-import main.model.Envelope;
+import main.baselayouts.MainController;
+import main.baselayouts.RootController;
+import main.listdata.EnvelopeController;
 
 import java.io.IOException;
 
@@ -19,29 +18,17 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private MainController mainController;
     private RootController rootController;
-    private Envelope envelope;
-
+    private EnvelopeController envelopeController;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        envelopeController = new EnvelopeController();
+
         initRootLayout();
         initMainLayout();
-        linkControllers();
-        initEnvelope();
     }
 
-    private void initEnvelope() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/main/model/EnvelopeLayout.fxml"));
-            HBox layout = loader.load();
-            envelope = loader.getController();
-            envelope.setMainApp(this);
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Rootlayout contains the menu bar UI
@@ -50,11 +37,10 @@ public class Main extends Application {
     private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/main/controller/RootLayout.fxml"));
+            loader.setLocation(Main.class.getResource("/main/baselayouts/RootLayout.fxml"));
             rootLayout = loader.load();
             rootController = loader.getController();
             rootController.setMainApp(this);
-            this.rootController = rootController;
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.setOnHidden(e -> rootController.doExit());
@@ -74,7 +60,7 @@ public class Main extends Application {
     private void initMainLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/main/controller/MainLayout.fxml"));
+            loader.setLocation(Main.class.getResource("/main/baselayouts/MainLayout.fxml"));
             AnchorPane mainLayout = loader.load();
             rootLayout.setCenter(mainLayout);
             mainController = loader.getController();
@@ -88,12 +74,6 @@ public class Main extends Application {
 
     }
 
-
-    private void linkControllers() {
-
-
-
-    }
 
 
     public static void main(String[] args) {
