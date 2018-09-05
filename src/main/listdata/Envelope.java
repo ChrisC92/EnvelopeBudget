@@ -30,4 +30,10 @@ public class Envelope {
         return name;
     }
 
+
+    @Override
+    public String toString() {
+        return name + "             " + fundsLeft + " / " + totalFunds;
+    }
+
 }

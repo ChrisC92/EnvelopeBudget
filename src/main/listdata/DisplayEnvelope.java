@@ -10,12 +10,10 @@ public class DisplayEnvelope extends ListCell<Envelope> {
     protected void updateItem(Envelope envelope, boolean empty) {
         super.updateItem(envelope, empty);
 
-        if(envelope == null) {
-            System.out.println("this is null");
+        if(empty) {
             setText(null);
         } else {
-            System.out.println(envelope.getName());
-            setText(envelope.getName());
+            setText(envelope.toString());
         }
     }
 }

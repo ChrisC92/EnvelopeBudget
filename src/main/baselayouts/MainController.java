@@ -56,7 +56,7 @@ public class MainController {
     @FXML
     private void handleAddButtonAction() {
         addButton.setOnAction((ActionEvent event) -> {
-            envelopes.get().add(new Envelope("envelope: "  + counter));
+            envelopes.get().add(new Envelope("envelope: "  + counter, 500));
             counter++;
             displayedEnvelopes.setCellFactory(new Callback<ListView<Envelope>, ListCell<Envelope>>() {
                 @Override
@@ -75,7 +75,4 @@ public class MainController {
         this.main = main;
     }
 
-    public void setEnvelopeController(EnvelopeController controller) {
-        envelopeController = controller;
-    }
 }
