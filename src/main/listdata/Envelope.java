@@ -5,25 +5,24 @@ public class Envelope {
     private String name;
     private int totalFunds;
     private int fundsLeft;
+    private EnvelopeCat type;
+    private boolean recurring;
+
 
     public Envelope() {
+        name = "empty";
+        totalFunds = 0;
+        type = EnvelopeCat.EMPTY;
     }
 
-    public Envelope(String name) {
+    public Envelope(String name, EnvelopeCat type, int totalFunds, boolean recurring) {
         this.name = name;
+        this.type = type;
+        this.totalFunds = totalFunds;
+        this.fundsLeft = totalFunds;
+        this.recurring = recurring;
     }
 
-    public Envelope(String name, int funds) {
-        this.name = name;
-        totalFunds = funds;
-        fundsLeft = funds;
-    }
-
-    public Envelope(String name, int funds, int fundsLeft) {
-        this.name = name;
-        totalFunds = funds;
-        fundsLeft = fundsLeft;
-    }
 
 
     public String getName() {
@@ -36,4 +35,12 @@ public class Envelope {
         return name + "             " + fundsLeft + " / " + totalFunds;
     }
 
+
+    public boolean isempty() {
+        return name.equals("empty") && totalFunds==0 && type.equals(EnvelopeCat.EMPTY);
+    }
+
+    public enum EnvelopeCat {
+        GROCERIES, GENERAL, EATINGOUT, TRANSPORT, SAVINGS, CREDITCARD, ENTERTAINMENT, EMPTY
+    }
 }

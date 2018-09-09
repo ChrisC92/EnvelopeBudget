@@ -14,4 +14,8 @@ public class Envelopes {
     public ObservableList<Envelope> get() {
         return envelopes;
     }
+
+    public void add(Envelope envelope) {
+        envelopes.add(envelope);
+    }
 }

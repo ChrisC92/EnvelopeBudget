@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.baselayouts.MainController;
 import main.baselayouts.RootController;
-import main.listdata.EnvelopeController;
+import main.listdata.CreateEnvelopeController;
 
 import java.io.IOException;
 
@@ -18,12 +18,12 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private MainController mainController;
     private RootController rootController;
-    private EnvelopeController envelopeController;
+    private CreateEnvelopeController envelopeController;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        envelopeController = new EnvelopeController();
+        envelopeController = new CreateEnvelopeController();
 
         initRootLayout();
         initMainLayout();
@@ -32,7 +32,6 @@ public class Main extends Application {
 
     /**
      * Rootlayout contains the menu bar UI
-     *
      */
     private void initRootLayout() {
         try {
