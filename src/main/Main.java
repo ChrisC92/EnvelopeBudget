@@ -18,15 +18,13 @@ public class Main extends Application {
     private BorderPane rootLayout;
     private MainController mainController;
     private RootController rootController;
-    private CreateEnvelopeController envelopeController;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        envelopeController = new CreateEnvelopeController();
 
         initRootLayout();
-        initMainLayout();
+        initMainLayout();+
     }
 
 

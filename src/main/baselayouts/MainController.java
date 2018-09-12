@@ -40,15 +40,15 @@ public class MainController {
         envelopes = new Envelopes(FXCollections.observableArrayList());
         displayedEnvelopes.setItems(envelopes.get());
         envelopeController = new CreateEnvelopeController();
-        envelopeController.setEnvelopeList(displayedEnvelopes);
+        envelopeController.injectMainController(this);
         handleAddButtonAction();
     }
 
     @FXML
     private void handleAddButtonAction() {
         addButton.setOnAction( event -> {
-            Envelope envelope = envelopeController.createEnvelope();
-            envelopes.add(envelope);
+            envelopeController.inputEnvelopeData(primaryStage);
+
         });
     }
 
@@ -62,4 +62,11 @@ public class MainController {
         this.main = main;
     }
 
+    public void setEnvelopeController(CreateEnvelopeController envelopeController) {
+        this.envelopeController = envelopeController;
+    }
+
+    public void addEnvelope(Envelope envelope) {
+        envelopes.add(envelope);
+    }
 }

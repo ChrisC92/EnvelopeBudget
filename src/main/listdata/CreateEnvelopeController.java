@@ -1,5 +1,7 @@
 package main.listdata;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.Main;
+import main.baselayouts.MainController;
 
 import java.io.IOException;
 
@@ -27,8 +30,8 @@ public class CreateEnvelopeController {
     @FXML
     private Button confirmButton;
 
-
     private ListView<Envelope> envelopeListView;
+    private MainController mainController;
 
     public CreateEnvelopeController() {
     }
@@ -37,60 +40,51 @@ public class CreateEnvelopeController {
     private void initialize() {
         dialogButtonAction();
         populateChoiceBoxes();
+        populateDialogTesting();
+    }
+
+    private void populateDialogTesting() {
+        envelopeName = new TextField("test");
+        total = new TextField("100");
+        type.setValue(Envelope.EnvelopeCat.CREDITCARD);
+        stickied.setValue("recurring");
+
     }
 
     public void setEnvelopeList(ListView<Envelope> envelopeList) {
         envelopeListView = envelopeList;
     }
 
-
-    private class EnvelopeFormatCell extends ListCell<Envelope> {
-
-        public EnvelopeFormatCell() {
-            super();
-        }
-
-        @Override
-        protected void updateItem(Envelope item, boolean empty) {
-            super.updateItem(item, empty);
-            initEnvelopeDisplay();
-
-        }
-
-        private void initEnvelopeDisplay() {
-            System.out.println("running");
-        }
-    }
-
-    public Envelope createEnvelope() {
+    public void inputEnvelopeData(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/main/listdata/CreateEnvelope.fxml"));
             Scene scene = new Scene(root);
-            this.stage = new Stage();
+            stage = new Stage();
+            stage.initOwner(primaryStage);
             stage.setScene(scene);
-            stage.showAndWait();
-        } catch(IOException e) {
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        int totalInt = Integer.parseInt(total.getText());
-        return new Envelope(envelopeName.getText(), type.getValue(), totalInt, isRecurring());
     }
 
     @FXML
     private void dialogButtonAction() {
         confirmButton.setOnAction(event -> {
-            if(incompleteForm()) {
+            if (incompleteForm()) {
                 Alert error = new Alert(Alert.AlertType.ERROR);
                 error.setTitle("Error");
                 error.setContentText("Fields have not been completed");
                 error.showAndWait();
+            } else {
+                int totalInt = Integer.parseInt(total.getText());
+                mainController.addEnvelope(new Envelope(envelopeName.getText(), type.getValue(), totalInt, isRecurring()));
             }
         });
     }
 
     private boolean isRecurring() {
-        if(type.equals("recurring")) {
+        if (type.equals("recurring")) {
             return true;
         } else {
             return false;
@@ -99,7 +93,7 @@ public class CreateEnvelopeController {
 
     private boolean incompleteForm() {
         return envelopeName.getText().equals("") || total.getText().equals("") ||
-            type.getSelectionModel().isEmpty() || stickied.getSelectionModel().isEmpty();
+                type.getSelectionModel().isEmpty() || stickied.getSelectionModel().isEmpty();
     }
 
     public void displayEnvelopes(Envelopes envelopes) {
@@ -121,8 +115,26 @@ public class CreateEnvelopeController {
         type.getItems().add(Envelope.EnvelopeCat.SAVINGS);
     }
 
-    public void setMainApp(Main main) {
-        this.main = main;
+    public void injectMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
+
+    private class EnvelopeFormatCell extends ListCell<Envelope> {
+
+        public EnvelopeFormatCell() {
+            super();
+        }
+
+        @Override
+        protected void updateItem(Envelope item, boolean empty) {
+            super.updateItem(item, empty);
+            initEnvelopeDisplay();
+
+        }
+
+        private void initEnvelopeDisplay() {
+            System.out.println("running");
+        }
     }
 }
-
