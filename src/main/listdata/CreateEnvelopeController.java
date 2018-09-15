@@ -22,8 +22,8 @@ public class CreateEnvelopeController {
     @FXML
     private Button confirmButton;
 
-    private ListView<Envelope> envelopeListView;
     private MainController mainController;
+    private Stage stage;
 
     public CreateEnvelopeController() {
     }
@@ -43,10 +43,6 @@ public class CreateEnvelopeController {
 
     }
 
-    public void setEnvelopeList(ListView<Envelope> envelopeList) {
-        envelopeListView = envelopeList;
-    }
-
     @FXML
     private void dialogButtonAction() {
         confirmButton.setOnAction(event -> {
@@ -58,6 +54,7 @@ public class CreateEnvelopeController {
             } else {
                 int totalInt = Integer.parseInt(total.getText());
                 mainController.addEnvelope(new Envelope(envelopeName.getText(), type.getValue(), totalInt, isRecurring()));
+                stage.hide();
             }
         });
     }
@@ -73,11 +70,6 @@ public class CreateEnvelopeController {
     private boolean incompleteForm() {
         return envelopeName.getText().equals("") || total.getText().equals("") ||
                 type.getSelectionModel().isEmpty() || stickied.getSelectionModel().isEmpty();
-    }
-
-    public void displayEnvelopes(Envelopes envelopes) {
-        envelopeListView.setCellFactory(listView -> new EnvelopeFormatCell());
-        envelopeListView.setItems(envelopes.get());
     }
 
     private void populateChoiceBoxes() {
@@ -98,22 +90,7 @@ public class CreateEnvelopeController {
         this.mainController = mainController;
     }
 
-
-    private class EnvelopeFormatCell extends ListCell<Envelope> {
-
-        public EnvelopeFormatCell() {
-            super();
-        }
-
-        @Override
-        protected void updateItem(Envelope item, boolean empty) {
-            super.updateItem(item, empty);
-            initEnvelopeDisplay();
-
-        }
-
-        private void initEnvelopeDisplay() {
-            System.out.println("running");
-        }
+    public void injectStage(Stage stage) {
+        this.stage = stage;
     }
 }

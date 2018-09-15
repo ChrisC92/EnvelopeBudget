@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import main.Main;
 import main.listdata.Envelope;
@@ -36,6 +37,7 @@ public class MainController {
 
     private CreateEnvelopeController envelopeController;
     private Envelopes envelopes;
+    private Stage createStage;
 
     public MainController() {
     }
@@ -43,6 +45,7 @@ public class MainController {
     @FXML
     private void initialize() {
         envelopes = new Envelopes(FXCollections.observableArrayList());
+        displayedEnvelopes.setCellFactory(envelopes -> new EnvelopeListItem());
         displayedEnvelopes.setItems(envelopes.get());
         handleAddButtonAction();
     }
@@ -51,24 +54,28 @@ public class MainController {
     private void handleAddButtonAction() {
         addButton.setOnAction(event -> {
             CreateEnvelopeDialogBox();
-
         });
     }
 
     private void CreateEnvelopeDialogBox() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/main/listdata/CreateEnvelope.fxml"));
-            Parent root = loader.load();
-            envelopeController = loader.getController();
-            envelopeController.injectMainController(this);
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.initOwner(primaryStage);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (envelopeController == null) {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/main/listdata/CreateEnvelope.fxml"));
+                Parent root = loader.load();
+                envelopeController = loader.getController();
+                envelopeController.injectMainController(this);
+                Scene scene = new Scene(root);
+                this.createStage = new Stage();
+                createStage.initOwner(primaryStage);
+                createStage.setScene(scene);
+                envelopeController.injectStage(createStage);
+                createStage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            createStage.show();
         }
     }
 
@@ -88,4 +95,44 @@ public class MainController {
     public void addEnvelope(Envelope envelope) {
         envelopes.add(envelope);
     }
+
+    /**
+     * Private class used for displaying the envelopes properly in
+     * the list
+     */
+    private class EnvelopeListItem extends ListCell<Envelope> {
+        HBox hbox = new HBox();
+        Label label = new Label("empty");
+        Pane pane = new Pane();
+        Button detailsButton = new Button("Details");
+        Envelope envelope;
+
+        public EnvelopeListItem() {
+            super();
+            hbox.getChildren().addAll(label, pane, detailsButton);
+            HBox.setHgrow(pane, Priority.ALWAYS);
+            detailsButton.setOnAction(clickEvent -> showEnvelopeDetails());
+        }
+
+        private void showEnvelopeDetails() {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("details will show in here");
+            alert.showAndWait();
+        }
+
+        @Override
+        protected void updateItem(Envelope item, boolean empty) {
+            super.updateItem(item, empty);
+            setText(null);
+            if (empty) {
+                envelope = null;
+                setGraphic(null);
+            } else {
+                envelope = item;
+                label.setText(item != null ? item.getName() : "<null>");
+                setGraphic(hbox);
+            }
+        }
+    }
+
 }
