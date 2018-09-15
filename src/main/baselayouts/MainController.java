@@ -2,6 +2,9 @@ package main.baselayouts;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -10,6 +13,8 @@ import main.Main;
 import main.listdata.Envelope;
 import main.listdata.CreateEnvelopeController;
 import main.listdata.Envelopes;
+
+import java.io.IOException;
 
 public class MainController {
 
@@ -39,19 +44,33 @@ public class MainController {
     private void initialize() {
         envelopes = new Envelopes(FXCollections.observableArrayList());
         displayedEnvelopes.setItems(envelopes.get());
-        envelopeController = new CreateEnvelopeController();
-        envelopeController.injectMainController(this);
         handleAddButtonAction();
     }
 
     @FXML
     private void handleAddButtonAction() {
-        addButton.setOnAction( event -> {
-            envelopeController.inputEnvelopeData(primaryStage);
+        addButton.setOnAction(event -> {
+            CreateEnvelopeDialogBox();
 
         });
     }
 
+    private void CreateEnvelopeDialogBox() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/main/listdata/CreateEnvelope.fxml"));
+            Parent root = loader.load();
+            envelopeController = loader.getController();
+            envelopeController.injectMainController(this);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initOwner(primaryStage);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void setStage(Stage primaryStage) {

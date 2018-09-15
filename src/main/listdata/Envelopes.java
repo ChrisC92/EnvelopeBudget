@@ -18,4 +18,12 @@ public class Envelopes {
     public void add(Envelope envelope) {
         envelopes.add(envelope);
     }
+
+    public boolean notEmpty() {
+        return !envelopes.isEmpty();
+    }
+
+    public String printFirst() {
+        return envelopes.get(0).toString();
+    }
 }

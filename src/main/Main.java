@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.baselayouts.MainController;
 import main.baselayouts.RootController;
-import main.listdata.CreateEnvelopeController;
 
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
 
         initRootLayout();
-        initMainLayout();+
+        initMainLayout();
     }
 
 

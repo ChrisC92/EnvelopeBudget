@@ -1,24 +1,16 @@
 package main.listdata;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.Main;
 import main.baselayouts.MainController;
 
-import java.io.IOException;
-
-
 public class CreateEnvelopeController {
 
     private Main main;
 
-    private Stage stage;
     @FXML
     private TextField envelopeName;
     @FXML
@@ -53,19 +45,6 @@ public class CreateEnvelopeController {
 
     public void setEnvelopeList(ListView<Envelope> envelopeList) {
         envelopeListView = envelopeList;
-    }
-
-    public void inputEnvelopeData(Stage primaryStage) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/main/listdata/CreateEnvelope.fxml"));
-            Scene scene = new Scene(root);
-            stage = new Stage();
-            stage.initOwner(primaryStage);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
