@@ -46,7 +46,7 @@ public class MainController {
     private void initialize() {
         envelopes = new Envelopes(FXCollections.observableArrayList());
         displayedEnvelopes.setCellFactory(envelopes -> new EnvelopeListItem());
-        displayedEnvelopes.setItems(envelopes.get());
+        displayedEnvelopes.setItems(envelopes.getList());
         handleAddButtonAction();
     }
 

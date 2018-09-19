@@ -48,7 +48,6 @@ public class Main extends Application {
 
     }
 
-
     /**
      *  main.Main layout handles rest of the GUI, links the root layout with main layout to create
      *  main window of the program
@@ -66,10 +65,7 @@ public class Main extends Application {
         } catch(Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
 
 
     public static void main(String[] args) {

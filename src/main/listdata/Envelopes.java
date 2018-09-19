@@ -11,16 +11,16 @@ public class Envelopes {
         this.envelopes = envelopes;
     }
 
-    public ObservableList<Envelope> get() {
+    public ObservableList<Envelope> getList() {
         return envelopes;
+    }
+
+    public Envelope getFromIndex(int index) {
+        return envelopes.get(index);
     }
 
     public void add(Envelope envelope) {
         envelopes.add(envelope);
-    }
-
-    public boolean notEmpty() {
-        return !envelopes.isEmpty();
     }
 
     public String printFirst() {

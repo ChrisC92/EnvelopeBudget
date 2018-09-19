@@ -1,5 +1,7 @@
 package main.listdata;
 
+import java.util.List;
+
 public class Envelope {
 
     private String name;
@@ -7,6 +9,7 @@ public class Envelope {
     private int fundsLeft;
     private EnvelopeCat type;
     private boolean recurring;
+    private List<Envelope> pastStats;
 
 
     public Envelope() {
@@ -23,7 +26,25 @@ public class Envelope {
         this.recurring = recurring;
     }
 
+    public void deductFunds(int amountSpent) {
+        fundsLeft -= amountSpent;
+    }
 
+    public int getTotalFunds() {
+        return totalFunds;
+    }
+
+    public int getSpentFunds() {
+        return fundsLeft;
+    }
+
+    public EnvelopeCat getType() {
+        return type;
+    }
+
+    public boolean isRecurring() {
+        return recurring;
+    }
 
     public String getName() {
         return name;
@@ -38,6 +59,10 @@ public class Envelope {
 
     public boolean isempty() {
         return name.equals("empty") && totalFunds==0 && type.equals(EnvelopeCat.EMPTY);
+    }
+
+    public boolean getrecurring() {
+        return recurring;
     }
 
     public enum EnvelopeCat {
