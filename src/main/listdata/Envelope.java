@@ -1,12 +1,14 @@
 package main.listdata;
 
+import javafx.scene.control.Alert;
+
 import java.util.List;
 
 public class Envelope {
 
     private String name;
     private int totalFunds;
-    private int fundsLeft;
+    private int fundsRemaining;
     private EnvelopeCat type;
     private boolean recurring;
     private List<Envelope> pastStats;
@@ -22,20 +24,24 @@ public class Envelope {
         this.name = name;
         this.type = type;
         this.totalFunds = totalFunds;
-        this.fundsLeft = totalFunds;
+        this.fundsRemaining = totalFunds;
         this.recurring = recurring;
     }
 
     public void deductFunds(int amountSpent) {
-        fundsLeft -= amountSpent;
+
+        if ((fundsRemaining - amountSpent) >= 0) {
+            fundsRemaining -= amountSpent;
+        } else {
+            Alert error = new Alert(Alert.AlertType.ERROR);
+            error.setTitle("Error");
+            error.setContentText("Not enough funds");
+            error.showAndWait();
+        }
     }
 
     public int getTotalFunds() {
         return totalFunds;
-    }
-
-    public int getSpentFunds() {
-        return fundsLeft;
     }
 
     public EnvelopeCat getType() {
@@ -50,19 +56,18 @@ public class Envelope {
         return name;
     }
 
-
     @Override
     public String toString() {
-        return name + "             " + fundsLeft + " / " + totalFunds;
+        return name + "             " + fundsRemaining + " / " + totalFunds;
     }
 
 
     public boolean isempty() {
-        return name.equals("empty") && totalFunds==0 && type.equals(EnvelopeCat.EMPTY);
+        return name.equals("empty") && totalFunds == 0 && type.equals(EnvelopeCat.EMPTY);
     }
 
-    public boolean getrecurring() {
-        return recurring;
+    public int getRemainingFunds() {
+        return fundsRemaining;
     }
 
     public enum EnvelopeCat {

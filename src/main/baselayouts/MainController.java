@@ -44,7 +44,10 @@ public class MainController {
 
     @FXML
     private void initialize() {
+        Envelope envelope = new Envelope("here", Envelope.EnvelopeCat.CREDITCARD, 1000,
+                true);
         envelopes = new Envelopes(FXCollections.observableArrayList());
+        envelopes.add(envelope);
         displayedEnvelopes.setCellFactory(envelopes -> new EnvelopeListItem());
         displayedEnvelopes.setItems(envelopes.getList());
         handleAddButtonAction();
@@ -88,30 +91,36 @@ public class MainController {
         this.main = main;
     }
 
-    public void setEnvelopeController(CreateEnvelopeController envelopeController) {
-        this.envelopeController = envelopeController;
-    }
 
     public void addEnvelope(Envelope envelope) {
         envelopes.add(envelope);
     }
 
     /**
-     * Private class used for displaying the envelopes properly in
-     * the list
-     */
-    private class EnvelopeListItem extends ListCell<Envelope> {
+     * Displays full UI for the list items
+     **/
+    private static class EnvelopeListItem extends ListCell<Envelope> {
         HBox hbox = new HBox();
-        Label label = new Label("empty");
+        Label name = new Label("empty");
+        Label fundsLeft = new Label("empty");
         Pane pane = new Pane();
-        Button detailsButton = new Button("Details");
+        Button moreButton = new Button("More");
+        Button payButton = new Button("Pay");
+        ProgressBar progressBar = new ProgressBar();
         Envelope envelope;
 
         public EnvelopeListItem() {
             super();
-            hbox.getChildren().addAll(label, pane, detailsButton);
+            hbox.setSpacing(25);
+            progressBar.setPrefWidth(300);
+            hbox.getChildren().addAll(name, pane, progressBar, fundsLeft, payButton, moreButton);
             HBox.setHgrow(pane, Priority.ALWAYS);
-            detailsButton.setOnAction(clickEvent -> showEnvelopeDetails());
+            moreButton.setOnAction(clickEvent -> showEnvelopeDetails());
+            payButton.setOnAction(clickEvent -> showPaymentDialog());
+        }
+
+        private void showPaymentDialog() {
+
         }
 
         private void showEnvelopeDetails() {
@@ -129,7 +138,10 @@ public class MainController {
                 setGraphic(null);
             } else {
                 envelope = item;
-                label.setText(item != null ? item.getName() : "<null>");
+                progressBar.setProgress(envelope.getTotalFunds());
+                name.setText(item != null ? item.getName() : "<null>");
+                String fundsLeftString = Integer.toString(item.getRemainingFunds());
+                fundsLeft.setText(item != null ? fundsLeftString : "<null>");
                 setGraphic(hbox);
             }
         }

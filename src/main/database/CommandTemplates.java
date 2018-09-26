@@ -20,9 +20,9 @@ public class CommandTemplates {
         insertStatement.append(", ");
         insertStatement.append(envelope.getTotalFunds());
         insertStatement.append(", ");
-        insertStatement.append(envelope.getSpentFunds());
+        insertStatement.append(envelope.getRemainingFunds());
         insertStatement.append(", ");
-        insertStatement.append(envelope.getrecurring());
+        insertStatement.append(envelope.isRecurring());
         insertStatement.append(");");
 
         return insertStatement.toString();

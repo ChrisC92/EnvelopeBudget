@@ -18,7 +18,7 @@ public class CreateEnvelopeController {
     @FXML
     private ChoiceBox<Envelope.EnvelopeCat> type;
     @FXML
-    private ChoiceBox<String> stickied;
+    private ChoiceBox<String> recurring;
     @FXML
     private Button confirmButton;
 
@@ -39,8 +39,14 @@ public class CreateEnvelopeController {
         envelopeName = new TextField("test");
         total = new TextField("100");
         type.setValue(Envelope.EnvelopeCat.CREDITCARD);
-        stickied.setValue("recurring");
+        recurring.setValue("recurring");
+    }
 
+    private void clearEnvelopeInput() {
+        envelopeName.clear();
+        total.clear();
+        type.setValue(null);
+        recurring.setValue(null);
     }
 
     @FXML
@@ -54,6 +60,7 @@ public class CreateEnvelopeController {
             } else {
                 int totalInt = Integer.parseInt(total.getText());
                 mainController.addEnvelope(new Envelope(envelopeName.getText(), type.getValue(), totalInt, isRecurring()));
+                clearEnvelopeInput();
                 stage.hide();
             }
         });
@@ -69,12 +76,12 @@ public class CreateEnvelopeController {
 
     private boolean incompleteForm() {
         return envelopeName.getText().equals("") || total.getText().equals("") ||
-                type.getSelectionModel().isEmpty() || stickied.getSelectionModel().isEmpty();
+                type.getSelectionModel().isEmpty() || recurring.getSelectionModel().isEmpty();
     }
 
     private void populateChoiceBoxes() {
-        stickied.getItems().add("recurring");
-        stickied.getItems().add("temporary");
+        recurring.getItems().add("recurring");
+        recurring.getItems().add("temporary");
 
         type.getItems().add(Envelope.EnvelopeCat.EMPTY);
         type.getItems().add(Envelope.EnvelopeCat.CREDITCARD);
