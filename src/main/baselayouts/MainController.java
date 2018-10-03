@@ -1,6 +1,7 @@
 package main.baselayouts;
 
 import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,7 @@ import main.listdata.CreateEnvelopeController;
 import main.listdata.Envelopes;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class MainController {
 
@@ -26,11 +28,11 @@ public class MainController {
     private Button addButton;
 
     @FXML
-    private TextField income;
+    private Label income;
     @FXML
-    private TextField currentBalance;
+    private Label currentBalance;
     @FXML
-    private TextField expectedBalance;
+    private Label expectedBalance;
 
     @FXML
     private ListView<Envelope> displayedEnvelopes;
@@ -99,7 +101,7 @@ public class MainController {
     /**
      * Displays full UI for the list items
      **/
-    private static class EnvelopeListItem extends ListCell<Envelope> {
+    private class EnvelopeListItem extends ListCell<Envelope> {
         HBox hbox = new HBox();
         Label name = new Label("empty");
         Label fundsLeft = new Label("empty");
@@ -111,8 +113,11 @@ public class MainController {
 
         public EnvelopeListItem() {
             super();
-            hbox.setSpacing(25);
+            hbox.setSpacing(5);
+            name.setPrefWidth(60);
             progressBar.setPrefWidth(300);
+            fundsLeft.setPrefWidth(60);
+
             hbox.getChildren().addAll(name, pane, progressBar, fundsLeft, payButton, moreButton);
             HBox.setHgrow(pane, Priority.ALWAYS);
             moreButton.setOnAction(clickEvent -> showEnvelopeDetails());
@@ -120,8 +125,49 @@ public class MainController {
         }
 
         private void showPaymentDialog() {
+            TextInputDialog paymentDialog = new TextInputDialog();
+            paymentDialog.setTitle("Payment");
+            paymentDialog.setContentText("Amount: ");
+            Optional<String> result = paymentDialog.showAndWait();
 
+            result.ifPresent(userInput -> {
+                if (isInteger(result)) {
+                    int intResult = Integer.parseInt(result.get());
+                    envelope.deductFunds(intResult);
+                    
+                } else{
+                    notIntAlertError();
+                }
+            });
         }
+
+        private void notIntAlertError() {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("can only insert numbers");
+            alert.showAndWait();
+        }
+
+        private boolean isInteger(Optional<String> result) {
+            String userInput = result.get();
+            if (userInput == null || userInput.isEmpty()) {
+                return false;
+            }
+            int i = 0;
+            if (userInput.charAt(0) == '-') {
+                if (userInput.length() == 1) {
+                    return false;
+                }
+                i = 1;
+            }
+            for (; i < userInput.length(); i++) {
+                char c = userInput.charAt(i);
+                if (c < '0' || c > '9') {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         private void showEnvelopeDetails() {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

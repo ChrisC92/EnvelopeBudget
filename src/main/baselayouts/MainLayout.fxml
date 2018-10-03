@@ -11,39 +11,39 @@
          <children>
             <HBox prefHeight="38.0" prefWidth="600.0">
                <children>
-                  <Label text="Income">
+                  <Label prefWidth="70.0" text="Income">
                      <HBox.margin>
                         <Insets left="5.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="income" prefWidth="50.0">
+                  <Label fx:id="income" prefWidth="60.0" text="1XXXX">
                      <HBox.margin>
-                        <Insets left="5.0" top="5.0" />
+                        <Insets left="5.0" top="10.0" />
                      </HBox.margin>
-                  </TextField>
-                  <Label text="Current&#10;Balance" textAlignment="CENTER">
+                  </Label>
+                  <Label prefWidth="70.0" text="Current&#10;Balance" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="5.0" top="2.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="currentBalance" prefWidth="50.0">
+                  <Label fx:id="currentBalance" prefWidth="60.0" text="1XXXX">
                      <HBox.margin>
-                        <Insets left="5.0" top="5.0" />
+                        <Insets left="5.0" top="10.0" />
                      </HBox.margin>
-                  </TextField>
-                  <Label text="Expected&#10;Balance" textAlignment="CENTER">
+                  </Label>
+                  <Label prefWidth="70.0" text="Expected&#10;Remaining" textAlignment="CENTER">
                      <HBox.margin>
                         <Insets left="5.0" top="2.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="expectedBalance" prefWidth="50.0">
+                  <Label fx:id="expectedBalance" prefWidth="65.0" text="1XXXX">
                      <HBox.margin>
-                        <Insets left="5.0" top="5.0" />
+                        <Insets left="10.0" top="10.0" />
                      </HBox.margin>
-                  </TextField>
+                  </Label>
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Add">
                      <HBox.margin>
-                        <Insets left="200.0" top="5.0" />
+                        <Insets left="120.0" top="5.0" />
                      </HBox.margin>
                   </Button>
                </children>

@@ -1,14 +1,17 @@
 package main.listdata;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 
 import java.util.List;
 
 public class Envelope {
 
-    private String name;
-    private int totalFunds;
-    private int fundsRemaining;
+    private final String name;
+    private final ObservableValue<Integer> totalFunds;
+    private ObservableValue<Integer> fundsRemaining;
     private EnvelopeCat type;
     private boolean recurring;
     private List<Envelope> pastStats;
@@ -16,22 +19,24 @@ public class Envelope {
 
     public Envelope() {
         name = "empty";
-        totalFunds = 0;
+        totalFunds = new SimpleIntegerProperty(0).asObject();
         type = EnvelopeCat.EMPTY;
     }
 
     public Envelope(String name, EnvelopeCat type, int totalFunds, boolean recurring) {
         this.name = name;
         this.type = type;
-        this.totalFunds = totalFunds;
-        this.fundsRemaining = totalFunds;
+        this.totalFunds = new SimpleIntegerProperty(totalFunds).asObject();
+        this.fundsRemaining = new SimpleIntegerProperty(totalFunds).asObject();
         this.recurring = recurring;
     }
 
     public void deductFunds(int amountSpent) {
+        int fundsRemainingInt = fundsRemaining.getValue();
+        if ((fundsRemainingInt - amountSpent) >= 0) {
+            fundsRemainingInt -= amountSpent;
+            fundsRemaining = new SimpleObjectProperty<>(fundsRemainingInt);
 
-        if ((fundsRemaining - amountSpent) >= 0) {
-            fundsRemaining -= amountSpent;
         } else {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Error");
@@ -41,7 +46,7 @@ public class Envelope {
     }
 
     public int getTotalFunds() {
-        return totalFunds;
+        return totalFunds.getValue();
     }
 
     public EnvelopeCat getType() {
@@ -63,11 +68,11 @@ public class Envelope {
 
 
     public boolean isempty() {
-        return name.equals("empty") && totalFunds == 0 && type.equals(EnvelopeCat.EMPTY);
+        return name.equals("empty") && totalFunds.getValue() == 0 && type.equals(EnvelopeCat.EMPTY);
     }
 
     public int getRemainingFunds() {
-        return fundsRemaining;
+        return fundsRemaining.getValue();
     }
 
     public enum EnvelopeCat {

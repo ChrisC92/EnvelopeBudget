@@ -32,15 +32,8 @@ public class CreateEnvelopeController {
     private void initialize() {
         dialogButtonAction();
         populateChoiceBoxes();
-        populateDialogTesting();
     }
 
-    private void populateDialogTesting() {
-        envelopeName = new TextField("test");
-        total = new TextField("100");
-        type.setValue(Envelope.EnvelopeCat.CREDITCARD);
-        recurring.setValue("recurring");
-    }
 
     private void clearEnvelopeInput() {
         envelopeName.clear();
@@ -75,6 +68,10 @@ public class CreateEnvelopeController {
     }
 
     private boolean incompleteForm() {
+        System.out.println(envelopeName.getText());
+        System.out.println(total.getText());
+        System.out.println(type.getValue());
+        System.out.println(recurring.getValue());
         return envelopeName.getText().equals("") || total.getText().equals("") ||
                 type.getSelectionModel().isEmpty() || recurring.getSelectionModel().isEmpty();
     }
