@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -6,8 +6,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.baselayouts.MainController;
-import main.baselayouts.RootController;
+import main.java.baselayouts.MainController;
+import main.java.baselayouts.RootController;
 
 import java.io.IOException;
 
@@ -33,7 +33,7 @@ public class Main extends Application {
     private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/main/baselayouts/RootLayout.fxml"));
+            loader.setLocation(Main.class.getResource("/main/java/baselayouts/RootLayout.fxml"));
             rootLayout = loader.load();
             rootController = loader.getController();
             rootController.setMainApp(this);
@@ -49,13 +49,13 @@ public class Main extends Application {
     }
 
     /**
-     *  main.Main layout handles rest of the GUI, links the root layout with main layout to create
+     *  main.java.Main layout handles rest of the GUI, links the root layout with main layout to create
      *  main window of the program
      */
     private void initMainLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/main/baselayouts/MainLayout.fxml"));
+            loader.setLocation(Main.class.getResource("/main/java/baselayouts/MainLayout.fxml"));
             AnchorPane mainLayout = loader.load();
             rootLayout.setCenter(mainLayout);
             mainController = loader.getController();

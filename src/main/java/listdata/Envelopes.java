@@ -1,4 +1,4 @@
-package main.listdata;
+package main.java.listdata;
 
 import javafx.collections.ObservableList;
 

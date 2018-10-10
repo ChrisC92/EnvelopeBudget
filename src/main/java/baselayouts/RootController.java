@@ -1,7 +1,7 @@
-package main.baselayouts;
+package main.java.baselayouts;
 
 import javafx.fxml.Initializable;
-import main.Main;
+import main.java.Main;
 
 import java.net.URL;
 import java.util.ResourceBundle;

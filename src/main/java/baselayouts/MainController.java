@@ -1,7 +1,6 @@
-package main.baselayouts;
+package main.java.baselayouts;
 
 import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,10 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import main.Main;
-import main.listdata.Envelope;
-import main.listdata.CreateEnvelopeController;
-import main.listdata.Envelopes;
+import main.java.Main;
+import main.java.listdata.Envelope;
+import main.java.listdata.CreateEnvelopeController;
+import main.java.listdata.Envelopes;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -66,7 +65,7 @@ public class MainController {
         if (envelopeController == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/main/listdata/CreateEnvelope.fxml"));
+                loader.setLocation(getClass().getResource("/main/java/listdata/CreateEnvelope.fxml"));
                 Parent root = loader.load();
                 envelopeController = loader.getController();
                 envelopeController.injectMainController(this);
@@ -131,14 +130,23 @@ public class MainController {
             Optional<String> result = paymentDialog.showAndWait();
 
             result.ifPresent(userInput -> {
-                if (isInteger(result)) {
-                    int intResult = Integer.parseInt(result.get());
+                if (isNumber(result)) {
+                    double intResult = Double.parseDouble(result.get());
                     envelope.deductFunds(intResult);
-                    
+                    progressBar.setProgress(envelopeProgress());
+                    displayedEnvelopes.refresh();
                 } else{
                     notIntAlertError();
                 }
             });
+        }
+
+        private double envelopeProgress() {
+            Double toReturn = (envelope.getRemainingFunds()/envelope.getTotalFunds()) * 100;
+
+            System.out.println("progress bar value: " + toReturn);
+
+            return (envelope.getRemainingFunds()/envelope.getTotalFunds()) * 100;
         }
 
         private void notIntAlertError() {
@@ -147,25 +155,13 @@ public class MainController {
             alert.showAndWait();
         }
 
-        private boolean isInteger(Optional<String> result) {
-            String userInput = result.get();
-            if (userInput == null || userInput.isEmpty()) {
+        private boolean isNumber(Optional<String> result) {
+            try{
+                double d = Double.parseDouble(result.get());
+                return true;
+            } catch (NumberFormatException nfe) {
                 return false;
             }
-            int i = 0;
-            if (userInput.charAt(0) == '-') {
-                if (userInput.length() == 1) {
-                    return false;
-                }
-                i = 1;
-            }
-            for (; i < userInput.length(); i++) {
-                char c = userInput.charAt(i);
-                if (c < '0' || c > '9') {
-                    return false;
-                }
-            }
-            return true;
         }
 
 
@@ -186,7 +182,7 @@ public class MainController {
                 envelope = item;
                 progressBar.setProgress(envelope.getTotalFunds());
                 name.setText(item != null ? item.getName() : "<null>");
-                String fundsLeftString = Integer.toString(item.getRemainingFunds());
+                String fundsLeftString = Double.toString(item.getRemainingFunds());
                 fundsLeft.setText(item != null ? fundsLeftString : "<null>");
                 setGraphic(hbox);
             }

@@ -1,9 +1,9 @@
-package database;
+package java.database;
 
-import database.createdata.CreateEnvelopeData;
-import main.database.CommandTemplates;
-import main.database.ConnectToDatabase;
-import main.listdata.Envelopes;
+import java.database.createdata.CreateEnvelopeData;
+import main.java.database.CommandTemplates;
+import main.java.database.ConnectToDatabase;
+import main.java.listdata.Envelopes;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -30,7 +30,7 @@ public class InsertToTestDatabase {
 
 
     public static void main(String[] args) {
-        Connection connection = ConnectToDatabase.connect("jdbc:sqlite:src/main/database/testSavedData.sqlite");
+        Connection connection = ConnectToDatabase.connect("jdbc:sqlite:src/main/java.database/testSavedData.sqlite");
 
         InsertToTestDatabase insertDatabase = new InsertToTestDatabase();
         insertDatabase.insertData(connection);

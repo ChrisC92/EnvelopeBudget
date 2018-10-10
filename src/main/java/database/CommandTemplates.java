@@ -1,6 +1,6 @@
-package main.database;
+package main.java.database;
 
-import main.listdata.Envelope;
+import main.java.listdata.Envelope;
 
 public class CommandTemplates {
 

@@ -1,11 +1,11 @@
-package main.listdata;
+package main.java.listdata;
 
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import main.Main;
-import main.baselayouts.MainController;
+import main.java.Main;
+import main.java.baselayouts.MainController;
 
 public class CreateEnvelopeController {
 
@@ -68,10 +68,6 @@ public class CreateEnvelopeController {
     }
 
     private boolean incompleteForm() {
-        System.out.println(envelopeName.getText());
-        System.out.println(total.getText());
-        System.out.println(type.getValue());
-        System.out.println(recurring.getValue());
         return envelopeName.getText().equals("") || total.getText().equals("") ||
                 type.getSelectionModel().isEmpty() || recurring.getSelectionModel().isEmpty();
     }

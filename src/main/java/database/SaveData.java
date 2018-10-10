@@ -1,9 +1,9 @@
-package main.database;
+package main.java.database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.listdata.Envelope;
-import main.listdata.Envelopes;
+import main.java.listdata.Envelope;
+import main.java.listdata.Envelopes;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ public class SaveData {
     public static void saveToDB(Envelopes envelopes) {
 
         Connection conn = ConnectToDatabase.connect(
-                "jdbc:sqlite:src/main/database/savedData.sqlite");
+                "jdbc:sqlite:src/main/java.database/savedData.sqlite");
         setAutoCommitFalse(conn);
         for (Envelope envelope : envelopes.getList()) {
             Statement statement = null;
