@@ -1,5 +1,7 @@
 package main.java.baselayouts;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -130,23 +132,19 @@ public class MainController {
             Optional<String> result = paymentDialog.showAndWait();
 
             result.ifPresent(userInput -> {
-                if (isNumber(result)) {
+                if(isNumber(result)) {
                     double intResult = Double.parseDouble(result.get());
                     envelope.deductFunds(intResult);
                     progressBar.setProgress(envelopeProgress());
                     displayedEnvelopes.refresh();
-                } else{
+                } else {
                     notIntAlertError();
                 }
             });
         }
 
         private double envelopeProgress() {
-            Double toReturn = (envelope.getRemainingFunds()/envelope.getTotalFunds()) * 100;
-
-            System.out.println("progress bar value: " + toReturn);
-
-            return (envelope.getRemainingFunds()/envelope.getTotalFunds()) * 100;
+            return (envelope.getRemainingFunds()/envelope.getTotalFunds());
         }
 
         private void notIntAlertError() {

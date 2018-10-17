@@ -1,5 +1,6 @@
 package main.java.listdata;
 
+import com.sun.jdi.DoubleValue;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
