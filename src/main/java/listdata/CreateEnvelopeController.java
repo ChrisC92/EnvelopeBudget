@@ -60,11 +60,7 @@ public class CreateEnvelopeController {
     }
 
     private boolean isRecurring() {
-        if (type.equals("recurring")) {
-            return true;
-        } else {
-            return false;
-        }
+        return type.equals("recurring");
     }
 
     private boolean incompleteForm() {

@@ -1,6 +1,6 @@
 package main.java.baselayouts;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -132,19 +132,14 @@ public class MainController {
             Optional<String> result = paymentDialog.showAndWait();
 
             result.ifPresent(userInput -> {
-                if(isNumber(result)) {
+                if (isNumber(result)) {
                     double intResult = Double.parseDouble(result.get());
                     envelope.deductFunds(intResult);
-                    progressBar.setProgress(envelopeProgress());
                     displayedEnvelopes.refresh();
-                } else {
+                } else{
                     notIntAlertError();
                 }
             });
-        }
-
-        private double envelopeProgress() {
-            return (envelope.getRemainingFunds()/envelope.getTotalFunds());
         }
 
         private void notIntAlertError() {
@@ -178,13 +173,20 @@ public class MainController {
                 setGraphic(null);
             } else {
                 envelope = item;
-                progressBar.setProgress(envelope.getTotalFunds());
                 name.setText(item != null ? item.getName() : "<null>");
                 String fundsLeftString = Double.toString(item.getRemainingFunds());
                 fundsLeft.setText(item != null ? fundsLeftString : "<null>");
+                bindProgressBarToRemainingFundsDividedByTotalFunds();
                 setGraphic(hbox);
             }
         }
-    }
 
+        private void bindProgressBarToRemainingFundsDividedByTotalFunds() {
+            if (!progressBar.progressProperty().isBound()) {
+                final DoubleBinding remainingDividedByTotalProperty = envelope.remainingFundsProperty()
+                        .divide(envelope.totalFundsProperty());
+                progressBar.progressProperty().bind(remainingDividedByTotalProperty);
+            }
+        }
+    }
 }

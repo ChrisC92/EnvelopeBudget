@@ -7,28 +7,15 @@ import main.java.listdata.Envelopes;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class SaveData {
 
     public static void saveToDB(Envelopes envelopes) {
 
-        Connection conn = ConnectToDatabase.connect(
-                "jdbc:sqlite:src/main/java.database/savedData.sqlite");
-        setAutoCommitFalse(conn);
-        for (Envelope envelope : envelopes.getList()) {
-            Statement statement = null;
-            String sqlInsert = CommandTemplates.createInsertEnvelopeTable(envelope);
-            try {
-                statement = conn.createStatement();
-                statement.executeUpdate(sqlInsert);
-                statement.close();
-            } catch(SQLException e) {
-                System.out.println("error creating statement and adding to db");
-                System.out.println(e.getMessage());
-            }
+        String databaseLocation = "jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/database/TestSavedData.sqlite";
+        for(Envelope envelope : envelopes.getList()) {
+            DatabaseCommands.insertCurrentEnvelopesToDB(envelope, databaseLocation);
         }
-        connCommitAndClose(conn);
 
     }
 
@@ -42,7 +29,7 @@ public class SaveData {
         }
     }
 
-    private static void connCommitAndClose(Connection conn) {
+    private static void connectionCommitAndClose(Connection conn) {
         try {
             conn.commit();
             conn.close();

@@ -5,7 +5,7 @@ import java.time.Month;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
-public class PeriodTest {
+public class PeriodExample {
 
 
     public static void main(String[] args) {
@@ -20,4 +20,6 @@ public class PeriodTest {
                 period.getMonths() + " months, " + period.getDays() + " days old." +
                 "(" + chrono + "days old)");
     }
+
+
 }

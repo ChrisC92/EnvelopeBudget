@@ -14,7 +14,7 @@ public class DateUtilTest {
         LocalDate today = LocalDate.now();
         LocalDate previousMonth = today.minusMonths(1);
 
-        Assert.assertEquals(true, CheckDates.isNewMonth(today));
-        Assert.assertEquals(false, CheckDates.isNewMonth(previousMonth));
+        Assert.assertEquals(false, CheckDates.isNewMonth(today));
+        Assert.assertEquals(true, CheckDates.isNewMonth(previousMonth));
     }
 }

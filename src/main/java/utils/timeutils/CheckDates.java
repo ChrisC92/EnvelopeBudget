@@ -4,10 +4,14 @@ import java.time.LocalDate;
 
 public class CheckDates {
 
+    public static boolean isNewMonth(LocalDate date) {
+        LocalDate todayDate = LocalDate.now();
+        return !date.getMonth().equals(todayDate.getMonth());
+    }
 
-    public static boolean isNewMonth(LocalDate payDate) {
-        LocalDate today = LocalDate.now();
-        return payDate.getMonth().equals(today.getMonth());
+    public static boolean isSameMonth(LocalDate date) {
+        LocalDate todayDate = LocalDate.now();
+        return date.getMonth().equals(todayDate.getMonth());
     }
 
 

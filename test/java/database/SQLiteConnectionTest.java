@@ -12,7 +12,7 @@ public class SQLiteConnectionTest {
         Connection conn = null;
 
         try {
-            String url = "jdbc:sqlite:savedData.sqlite";
+            String url = "jdbc:sqlite:SavedData.sqlite";
             conn = DriverManager.getConnection(url);
             System.out.println("connection to SQLite has been established");
         } catch(SQLException e) {

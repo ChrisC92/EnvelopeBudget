@@ -1,18 +1,15 @@
 package main.java.listdata;
 
-import com.sun.jdi.DoubleValue;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Alert;
-
 import java.util.List;
+
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.control.Alert;
 
 public class Envelope {
 
     private final String name;
-    private final ObservableValue<Double> totalFunds;
-    private ObservableValue<Double> fundsRemaining;
+    private final SimpleDoubleProperty totalFunds;
+    private SimpleDoubleProperty fundsRemaining;
     private EnvelopeCat type;
     private boolean recurring;
     private List<Envelope> pastStats;
@@ -20,24 +17,23 @@ public class Envelope {
 
     public Envelope() {
         name = "empty";
-        totalFunds = new SimpleDoubleProperty(0).asObject();
+        totalFunds = new SimpleDoubleProperty(0);
         type = EnvelopeCat.EMPTY;
     }
 
     public Envelope(String name, EnvelopeCat type, double totalFunds, boolean recurring) {
         this.name = name;
         this.type = type;
-        this.totalFunds = new SimpleDoubleProperty(totalFunds).asObject();
-        this.fundsRemaining = new SimpleDoubleProperty(totalFunds).asObject();
+        this.totalFunds = new SimpleDoubleProperty(totalFunds);
+        this.fundsRemaining = new SimpleDoubleProperty(totalFunds);
         this.recurring = recurring;
     }
 
     public void deductFunds(double amountSpent) {
-        double fundsRemainingInt = fundsRemaining.getValue();
+        double fundsRemainingInt = fundsRemaining.get();
         if ((fundsRemainingInt - amountSpent) >= 0) {
             fundsRemainingInt -= amountSpent;
-            fundsRemaining = new SimpleObjectProperty<>(fundsRemainingInt);
-
+            setRemainingFunds(fundsRemainingInt);
         } else {
             Alert error = new Alert(Alert.AlertType.ERROR);
             error.setTitle("Error");
@@ -47,11 +43,23 @@ public class Envelope {
     }
 
     public double getTotalFunds() {
-        return totalFunds.getValue();
+        return totalFunds.get();
     }
 
-    public double getRemainingFunds() {
-        return fundsRemaining.getValue();
+    public SimpleDoubleProperty totalFundsProperty() {
+        return totalFunds;
+    }
+
+    public  double getRemainingFunds() {
+        return fundsRemaining.get();
+    }
+
+    public void setRemainingFunds(double value) {
+        fundsRemaining.set(value);
+    }
+
+    public SimpleDoubleProperty remainingFundsProperty() {
+        return fundsRemaining;
     }
 
     public EnvelopeCat getType() {
@@ -74,6 +82,13 @@ public class Envelope {
 
     public boolean isempty() {
         return name.equals("empty") && totalFunds.getValue() == 0 && type.equals(EnvelopeCat.EMPTY);
+    }
+
+    public String getRecurringAsString() {
+        if(recurring) {
+            return "true";
+        }
+        return "false";
     }
 
     public enum EnvelopeCat {
