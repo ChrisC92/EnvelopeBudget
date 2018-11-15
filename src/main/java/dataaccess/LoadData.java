@@ -1,4 +1,4 @@
-package main.java.database;
+package main.java.dataaccess;
 
 public class LoadData {
 
@@ -12,4 +12,9 @@ public class LoadData {
     public static void loadHistoricData() {
 
     }
+
+    public static void getEnvelopeID(String envelopeName) {
+
+    }
+
 }

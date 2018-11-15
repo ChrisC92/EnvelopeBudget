@@ -1,5 +1,4 @@
-package java.database;
-
+package dataaccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,12 +11,13 @@ public class SQLiteConnectionTest {
         Connection conn = null;
 
         try {
-            String url = "jdbc:sqlite:SavedData.sqlite";
+            String url = "jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/NewTest.sqlite";
             conn = DriverManager.getConnection(url);
             System.out.println("connection to SQLite has been established");
         } catch(SQLException e) {
             e.printStackTrace();
-        } finally {
+        }
+        finally {
             try{
                 if(conn != null) {
                     conn.close();

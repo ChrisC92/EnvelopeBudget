@@ -1,4 +1,4 @@
-package main.java.database;
+package main.java.dataaccess;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,13 +10,12 @@ import java.sql.SQLException;
 
 public class SaveData {
 
-    public static void saveToDB(Envelopes envelopes) {
+    public static void saveCurrentToDB(Envelopes envelopes) {
 
-        String databaseLocation = "jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/database/TestSavedData.sqlite";
+        String databaseLocation = "jdbc:dataaccess:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite";
         for(Envelope envelope : envelopes.getList()) {
-            DatabaseCommands.insertCurrentEnvelopesToDB(envelope, databaseLocation);
+            DatabaseCommands.insertCurrentEnvelopeToDB(envelope, databaseLocation);
         }
-
     }
 
 
@@ -58,7 +57,7 @@ public class SaveData {
 
         Envelopes envelopes = new Envelopes(listEnvelopes);
 
-        SaveData.saveToDB(envelopes);
+        SaveData.saveCurrentToDB(envelopes);
 
     }
 }
