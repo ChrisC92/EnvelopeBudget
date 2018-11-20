@@ -3,17 +3,17 @@ package main.java.dataaccess;
 public class LoadData {
 
 
-    public static void loadCurrentEnvelopes() {
+    public void loadCurrentEnvelopes() {
 
     }
 
 
 
-    public static void loadHistoricData() {
+    public void loadHistoricData() {
 
     }
 
-    public static void getEnvelopeID(String envelopeName) {
+    public void getEnvelopeID(String envelopeName) {
 
     }
 

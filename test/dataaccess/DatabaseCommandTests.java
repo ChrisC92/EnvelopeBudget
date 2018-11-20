@@ -2,23 +2,19 @@ package dataaccess;
 
 import main.java.dataaccess.DatabaseCommands;
 import main.java.listdata.Envelope;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import dataaccess.inserttestdata.InsertToTestDatabase;
-
-import java.sql.SQLException;
+import dataaccess.inserttestdata.InsertTestDataToDatabase;
 
 
 /**
- * Database commands holds numerous static methods for communicating with dataaccess data
+ * Database commandsDB holds numerous static methods for communicating with dataaccess data
  * all tests will use the TestSavedData dataaccess
  */
 public class DatabaseCommandTests {
-    private String connURL = "jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite";
+
+    private DatabaseCommands commandsDB = new DatabaseCommands();
+    private InsertTestDataToDatabase insertToDB = new InsertTestDataToDatabase();
     private Envelope fullFunds = new Envelope("full funds", Envelope.EnvelopeCat.GENERAL, 1000, false);
     private Envelope partialFunds = new Envelope("partial funds", Envelope.EnvelopeCat.GENERAL, 1000, false);
     private Envelope fundsSpent = new Envelope("funds spent", Envelope.EnvelopeCat.CREDITCARD, 1000, false);
@@ -26,9 +22,9 @@ public class DatabaseCommandTests {
 
     @BeforeClass
     public void initialise() {
-        DatabaseCommands.clearEnvelopesTableTestDb(connURL);
-        InsertToTestDatabase.insertThreeEnvelopes(connURL);
-        fullFunds.deductFunds(750);
+        commandsDB.clearEnvelopesTableTestDb();
+        insertToDB.insertThreeEnvelopes();
+        partialFunds.deductFunds(750);
         fundsSpent.deductFunds(1000);
 
     }
@@ -37,7 +33,7 @@ public class DatabaseCommandTests {
     @Test
     public void getEnvelopeID() {
 
-        int fullID = DatabaseCommands.getEnvelopeID(fullFunds, connURL);
+        //int fullID = DatabaseCommands.getEnvelopeID(fullFunds, connURL);
     }
 
 

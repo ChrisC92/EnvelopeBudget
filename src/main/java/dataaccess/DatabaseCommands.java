@@ -6,13 +6,10 @@ import java.sql.*;
 
 public class DatabaseCommands {
 
-    /**
-     * Two different databases are used within these commands, one real and one test. Both are mirrored with same
-     * tables and schemas -
-     * <p>
-     * connURL for test = "jdbc:dataaccess:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite"
-     */
-    public static void insertCurrentEnvelopeToDB(Envelope envelope, String connURL) {
+
+    private String connURL = "jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite";
+
+    public void insertCurrentEnvelopeToDB(Envelope envelope) {
         String sql = "INSERT INTO envelopes (name, type, totalFunds, " +
                 "fundsRemaining, recurring) VALUES (?, ?, ?, ?, ?)";
 
@@ -32,7 +29,7 @@ public class DatabaseCommands {
 
     }
 
-    public static void clearEnvelopesTableTestDb(String connURL) {
+    public void clearEnvelopesTableTestDb() {
         Connection conn = ConnectToDatabase.connect(connURL);
         try {
             Statement statement = conn.createStatement();
@@ -48,7 +45,7 @@ public class DatabaseCommands {
         }
     }
 
-    public static void saveRecurringForMonth(Envelope envelope, String connURL) {
+    public void saveRecurringForMonth(Envelope envelope) {
         String sql = "INSERT INTO previousEnvelopes (";
 
         Connection conn = ConnectToDatabase.connect(connURL);
@@ -64,7 +61,7 @@ public class DatabaseCommands {
     }
 
 
-    public static int getEnvelopeID(Envelope envelope, String connURL) throws SQLException {
+    public int getEnvelopeID(Envelope envelope) throws SQLException {
         String sql = "SELECT nameID FROM envelopes WHERE name = " + envelope.getName();
 
         try {
