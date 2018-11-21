@@ -5,6 +5,9 @@ import main.java.listdata.Envelope;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import dataaccess.inserttestdata.InsertTestDataToDatabase;
+import java.util.Optional;
+
+import static org.junit.Assert.*;
 
 
 /**
@@ -13,27 +16,19 @@ import dataaccess.inserttestdata.InsertTestDataToDatabase;
  */
 public class DatabaseCommandTests {
 
-    private DatabaseCommands commandsDB = new DatabaseCommands();
-    private InsertTestDataToDatabase insertToDB = new InsertTestDataToDatabase();
+    private DatabaseCommands commandsDB = new DatabaseCommands("jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite");
     private Envelope fullFunds = new Envelope("full funds", Envelope.EnvelopeCat.GENERAL, 1000, false);
     private Envelope partialFunds = new Envelope("partial funds", Envelope.EnvelopeCat.GENERAL, 1000, false);
     private Envelope fundsSpent = new Envelope("funds spent", Envelope.EnvelopeCat.CREDITCARD, 1000, false);
 
-
-    @BeforeClass
-    public void initialise() {
-        commandsDB.clearEnvelopesTableTestDb();
-        insertToDB.insertThreeEnvelopes();
-        partialFunds.deductFunds(750);
-        fundsSpent.deductFunds(1000);
-
-    }
-
     // Methods assume that methods for saving into tables are correct, tested through checking test data saved
     @Test
     public void getEnvelopeID() {
+        Optional<Integer> fullFundsID = commandsDB.getEnvelopeID(fullFunds);
 
-        //int fullID = DatabaseCommands.getEnvelopeID(fullFunds, connURL);
+        fullFundsID.ifPresent(user -> {
+            assertEquals(1, user.intValue());
+        });
     }
 
 
