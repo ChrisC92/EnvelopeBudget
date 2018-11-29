@@ -3,8 +3,7 @@ package dataaccess.inserttestdata;
 import dataaccess.createdata.CreateEnvelopeData;
 import main.java.dataaccess.DatabaseCommands;
 import main.java.dataaccess.insertToDB;
-import main.java.listdata.Envelope;
-import main.java.listdata.Envelopes;
+import main.java.envelopedata.Envelopes;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,7 +23,7 @@ public class InsertTestDataToDatabase {
         insertToDB.saveCurrentToDB(envelopes);
     }
 
-    public void insertReoccrringEnvelopes() {
+    public void insertRecurringEnvelopes() {
         CreateEnvelopeData envelopeData = new CreateEnvelopeData();
         Envelopes envelopes = envelopeData.createEnvelopeData();
         dbCommands.clearPreviousEnvelopesTable();
@@ -38,7 +37,13 @@ public class InsertTestDataToDatabase {
 
 
     public static void main(String[] args) {
-        
+        InsertTestDataToDatabase testData = new InsertTestDataToDatabase();
+
+//        testData.insertTestEnvelopes();
+
+
+
+        testData.insertRecurringEnvelopes();
     }
 
 }

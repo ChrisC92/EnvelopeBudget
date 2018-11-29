@@ -1,10 +1,9 @@
 package dataaccess;
 
 import main.java.dataaccess.DatabaseCommands;
-import main.java.listdata.Envelope;
-import org.junit.BeforeClass;
+import main.java.envelopedata.Envelope;
 import org.junit.Test;
-import dataaccess.inserttestdata.InsertTestDataToDatabase;
+
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -20,6 +19,7 @@ public class DatabaseCommandTests {
     private Envelope fullFunds = new Envelope("full funds", Envelope.EnvelopeCat.GENERAL, 1000, false);
     private Envelope partialFunds = new Envelope("partial funds", Envelope.EnvelopeCat.GENERAL, 1000, false);
     private Envelope fundsSpent = new Envelope("funds spent", Envelope.EnvelopeCat.CREDITCARD, 1000, false);
+
 
     // Methods assume that methods for saving into tables are correct, tested through checking test data saved
     @Test

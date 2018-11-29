@@ -2,8 +2,8 @@ package dataaccess.createdata;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import main.java.listdata.Envelope;
-import main.java.listdata.Envelopes;
+import main.java.envelopedata.Envelope;
+import main.java.envelopedata.Envelopes;
 
 public class CreateEnvelopeData {
 
@@ -23,7 +23,7 @@ public class CreateEnvelopeData {
 
         Envelope fundsSpentGeneral = new Envelope("funds spent CREDIT", Envelope.EnvelopeCat.GENERAL,
                 800, true);
-        fundsSpentGeneral.deductFunds(1000);
+        fundsSpentGeneral.deductFunds(800);
         envelopes.add(fundsSpentGeneral);
 
         Envelope fundsFullCredit = new Envelope("full funds CREDIT", Envelope.EnvelopeCat.CREDITCARD,
@@ -35,25 +35,25 @@ public class CreateEnvelopeData {
         partialFundsCredit.deductFunds(1000);
         envelopes.add(partialFundsCredit);
 
-        Envelope addToSavings1 = new Envelope("partial funds SAVINGS", Envelope.EnvelopeCat.SAVINGS,
+        Envelope addToSavings1 = new Envelope("add first savings", Envelope.EnvelopeCat.SAVINGS,
                 250, true);
         envelopes.add(addToSavings1);
 
-        Envelope addToSavings2 = new Envelope("partial funds SAVINGS", Envelope.EnvelopeCat.SAVINGS,
+        Envelope addToSavings2 = new Envelope("add second savings", Envelope.EnvelopeCat.SAVINGS,
                 300, true);
-        envelopes.add(addToSavings1);
+        envelopes.add(addToSavings2);
 
-        Envelope addToSavings3 = new Envelope("partial funds SAVINGS", Envelope.EnvelopeCat.SAVINGS,
+        Envelope addToSavings3 = new Envelope("add third savings", Envelope.EnvelopeCat.SAVINGS,
                 100, true);
-        envelopes.add(addToSavings1);
+        envelopes.add(addToSavings3);
 
-        Envelope addToSavings4 = new Envelope("partial funds SAVINGS", Envelope.EnvelopeCat.SAVINGS,
+        Envelope addToSavings4 = new Envelope("add fourth savings", Envelope.EnvelopeCat.SAVINGS,
                 500, true);
-        envelopes.add(addToSavings1);
+        envelopes.add(addToSavings4);
 
-        Envelope addToSavings5 = new Envelope("partial funds SAVINGS", Envelope.EnvelopeCat.SAVINGS,
+        Envelope addToSavings5 = new Envelope("add fifth savings", Envelope.EnvelopeCat.SAVINGS,
                 250, true);
-        envelopes.add(addToSavings1);
+        envelopes.add(addToSavings5);
 
         return new Envelopes(envelopes);
     }

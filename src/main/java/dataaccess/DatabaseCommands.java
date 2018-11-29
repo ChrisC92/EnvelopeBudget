@@ -1,9 +1,10 @@
 package main.java.dataaccess;
 
-import main.java.listdata.Envelope;
+import main.java.envelopedata.Envelope;
 
 import java.sql.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public class DatabaseCommands {
@@ -74,32 +75,48 @@ public class DatabaseCommands {
 
     public void clearPreviousEnvelopesTable() {
         Connection conn = ConnectToDatabase.connect(connURL);
-        try{
+        try {
             Statement statement = conn.createStatement();
 
             String delete = "DELETE FROM previousEnvelopes";
             statement.executeUpdate(delete);
-            statement.executeUpdate("VACUM");
-        } catch(SQLException e) {
+            statement.executeUpdate("VACUUM");
+        } catch (SQLException e) {
             System.out.println("error clearing previous envelopes");
             e.printStackTrace();
         }
     }
 
     public Optional<Integer> getEnvelopeID(Envelope envelope) {
-        String sql = "SELECT nameID FROM envelopes WHERE name = " + envelope.getName();
+        String sql = "SELECT nameID FROM envelopes WHERE name = ?";
         Optional<Integer> envID = Optional.empty();
         try {
             Connection conn = ConnectToDatabase.connect(connURL);
-            Statement statement = conn.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            envID.of(resultSet.getInt("nameID"));
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, envelope.getName());
+
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) {
+                int i = resultSet.getInt("nameID");
+                statement.close();
+                conn.close();
+                resultSet.close();
+                return envID.of(new Integer(i));
+            }
             return envID;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println("error in getting envelope id");
+            e.printStackTrace();
             return envID;
         }
     }
 
+    public static void main(String[] args) {
+        DatabaseCommands commands = new DatabaseCommands("jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite");
+
+        Envelope envelope = new Envelope("no working", Envelope.EnvelopeCat.GENERAL, 105000, true);
+        Date date = Date.valueOf(LocalDate.now());
+        commands.saveRecurringForMonth(envelope, 1000, date);
+    }
 }
 

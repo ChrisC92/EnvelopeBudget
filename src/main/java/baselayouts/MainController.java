@@ -1,7 +1,6 @@
 package main.java.baselayouts;
 
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import main.java.Main;
-import main.java.listdata.Envelope;
-import main.java.listdata.CreateEnvelopeController;
-import main.java.listdata.Envelopes;
+import main.java.envelopedata.Envelope;
+import main.java.envelopedata.CreateEnvelopeController;
+import main.java.envelopedata.Envelopes;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -67,7 +66,7 @@ public class MainController {
         if (envelopeController == null) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/main/java/listdata/CreateEnvelope.fxml"));
+                loader.setLocation(getClass().getResource("/main/java/envelopedata/CreateEnvelope.fxml"));
                 Parent root = loader.load();
                 envelopeController = loader.getController();
                 envelopeController.injectMainController(this);
