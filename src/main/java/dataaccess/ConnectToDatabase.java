@@ -10,7 +10,6 @@ public class ConnectToDatabase {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
-            System.out.println("connection to SQLite has been established");
             return conn;
         } catch(SQLException e) {
             System.out.printf(e.getMessage());

@@ -3,9 +3,10 @@ package main.java.dataaccess;
 import main.java.envelopedata.Envelope;
 
 import java.sql.*;
-
 import java.time.LocalDate;
 import java.util.Optional;
+
+import static main.java.envelopedata.Envelope.EnvelopeCat;
 
 public class DatabaseCommands {
 
@@ -111,12 +112,31 @@ public class DatabaseCommands {
         }
     }
 
-    public Optional<Integer>
+    public Optional<Integer> getTotalFundsFromName(String name) {
+
+
+        return Optional.empty();
+    }
+
+    public Optional<Integer> getRemainingFundsFromName(String name) {
+
+        return Optional.empty();
+    }
+
+    public Optional<EnvelopeCat> getTypeFromName(String name) {
+
+        return Optional.empty();
+    }
+
+    public boolean getRecurringFromName(String name) {
+
+        return false;
+    }
 
     public static void main(String[] args) {
         DatabaseCommands commands = new DatabaseCommands("jdbc:sqlite:/Users/ChrisCorner/Programming/Java/Projects/EnvelopeBudget/src/main/java/dataaccess/databasefiles/TestSavedData.sqlite");
 
-        Envelope envelope = new Envelope("no working", Envelope.EnvelopeCat.GENERAL, 105000, true);
+        Envelope envelope = new Envelope("no working", EnvelopeCat.GENERAL, 105000, true);
         Date date = Date.valueOf(LocalDate.now());
         commands.saveRecurringForMonth(envelope, 1000, date);
     }
